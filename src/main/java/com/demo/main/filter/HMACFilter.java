@@ -23,10 +23,16 @@ import com.demo.main.util.HMAC;
 import org.springframework.beans.factory.annotation.Value;
 
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE + 5)
-public class RequestLoggingFilter extends OncePerRequestFilter {
+@Order(Ordered.HIGHEST_PRECEDENCE + 6)
+public class HMACFilter extends OncePerRequestFilter {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(RequestLoggingFilter.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(HMACFilter.class);
+
+        @Value("${docusignSignatureHeader}")
+	private String docusignSignatureHeader;
+
+	@Value("${docusignSecret}")
+	private String docusignSecret;
 
 
 	@Override
@@ -47,7 +53,24 @@ public class RequestLoggingFilter extends OncePerRequestFilter {
                         headerMap=getHeaderMap(requestWrapper);
 			LOGGER.info("***HEader Map:" + gson.toJson(headerMap));
 
-			chain.doFilter(requestWrapper, response);
+			LOGGER.info("Request URI is:" + requestWrapper.getRequestURI());
+			LOGGER.info("****Payload is:" + requestWrapper.getPayload());
+                        String secret=docusignSecret;
+                        String payload=requestWrapper.getPayload();
+                        String  verify=headerMap.get(docusignSignatureHeader);
+                        if(null!=verify) {
+                           LOGGER.info("**verify is:" + verify);
+                           boolean result= HMAC.isHashValid(secret,payload,verify);
+                           if(!result) {
+                            LOGGER.info("Request is NOT  from Docusign");
+                           }else{
+                            LOGGER.info("Request is VALID from Docusign");
+                            chain.doFilter(requestWrapper,response);
+                          }
+                       }else{
+                         LOGGER.error("Docusign Signature Header not found in request");
+                       }
+//			chain.doFilter(requestWrapper, response);
 
 		} catch (Exception e) {
 			LOGGER.error("Exception:" + e);
