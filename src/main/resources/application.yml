@@ -1,14 +1,14 @@
-logging:
-  level:
-    org:
-      springframework:
-        web:
-          filter:
-            CommonsRequestLoggingFilter: DEBUG
+#Docusign Integration Configuraiton
+
+docusignSignatureHeader: x-docusign-signature-1
+docusignSecret: uXeKjhJIdzaKnJInCWq2jKbCPvIpUuPBLOV7OMKzRCs=
 
 #Actuator Management Endpoints Configuration
-# configuration
+
 management:
+  health:
+    diskspace:
+      enabled: false
   endpoint:
     env:
       enabled: true

@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.filter.CommonsRequestLoggingFilter;
-import org.springframework.context.annotation.Bean;
+//import org.springframework.web.filter.CommonsRequestLoggingFilter;
+//import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @RestController
@@ -19,12 +19,12 @@ public class DemoApplication {
 		
 
     @PostMapping("/postdata")
-    public void postData(@RequestBody String str) {
-        System.out.println("inside postData");
+    public String postData(@RequestBody String str) {
+       return "Posted Data";
     }
 
 
-      @Bean
+/*      @Bean
       public CommonsRequestLoggingFilter logFilter() {
           CommonsRequestLoggingFilter filter
             = new CommonsRequestLoggingFilter();
@@ -35,6 +35,7 @@ public class DemoApplication {
           filter.setAfterMessagePrefix("REQUEST DATA : ");
           return filter;
       }
+*/
 
 }
 

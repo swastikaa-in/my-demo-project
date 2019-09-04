@@ -1,0 +1,9 @@
+ curl -d "welcome" -H "Content-Type: text/plain" -X POST http://localhost:9081/postdata
+ 
+ curl -d '{"key1":"value1", "key2":"value2"}' -H "Content-Type: application/json" -X POST http://localhost:9081/postdata
+ 
+ curl -d "param1=value1&param2=value2" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost:9081/postdata
+ curl -d "param1=value1&param2=value2" -X POST http://localhost:9081/postdata
+
+
+
