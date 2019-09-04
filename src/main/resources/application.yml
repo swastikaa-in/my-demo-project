@@ -1,7 +1,9 @@
-#Docusign Integration Configuraiton
-
-docusignSignatureHeader: x-docusign-signature-1
-docusignSecret: uXeKjhJIdzaKnJInCWq2jKbCPvIpUuPBLOV7OMKzRCs=
+#Docusign Integration Configuration
+hmac:
+  docusignSignatureHeader: x-docusign-signature-1
+  docusignSecret: uXeKjhJIdzaKnJInCWq2jKbCPvIpUuPBLOV7OMKzRCs=
+  filterPattern: "/users/*"
+  enabled: true
 
 #Actuator Management Endpoints Configuration
 

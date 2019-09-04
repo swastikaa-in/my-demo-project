@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "hmacdocusignSignatureHeader",
+    "type": "java.l.ang.String",
+    "description": "A description for 'docusignSignatureHeader'"
+  },
+  {
+    "name": "hmac.docusignSecret",
+    "type": "java.lang.String",
+    "description": "A description for 'docusignSecret'"
+  },
+  {
+    "name": "hmac.filterpattern",
+    "type": "java.lang.String",
+    "description": "A description for 'fileterPattern'"
+  },
+  {
+    "name": "hmac.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'filterPattern'"
+  }
+]}
