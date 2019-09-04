@@ -58,14 +58,19 @@ public class RequestLoggingFilter extends OncePerRequestFilter {
                         String secret=docusignSecret;
                         String payload=requestWrapper.getPayload();
                         String  verify=headerMap.get(docusignSignatureHeader);
-                        LOGGER.info("**verify is:" + verify);
-                        boolean result= HMAC.isHashValid(secret,payload,verify);
-                        if(!result) {
-                        LOGGER.info("Request is NOT  from Docusign");
-                        }else{
-                        LOGGER.info("Request is VALID from Docusign");
-                        }
-			chain.doFilter(requestWrapper, response);
+                        if(null!=verify) {
+                           LOGGER.info("**verify is:" + verify);
+                           boolean result= HMAC.isHashValid(secret,payload,verify);
+                           if(!result) {
+                            LOGGER.info("Request is NOT  from Docusign");
+                           }else{
+                            LOGGER.info("Request is VALID from Docusign");
+                            chain.doFilter(requestWrapper,response);
+                          }
+                       }else{
+                         LOGGER.error("Docusign Signature Header not found in request");
+                       }
+//			chain.doFilter(requestWrapper, response);
 
 		} catch (Exception e) {
 			LOGGER.error("Exception:" + e);
